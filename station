@@ -198,7 +198,7 @@ server <- function(input, output, session) {
     
     # --- 5) load stations.csv remotely (if available), otherwise build minimal station_Info ---
     stations_data <- tryCatch({
-      read.csv("https://raw.githubusercontent.com/rarabzad/LR/main/stations.csv", stringsAsFactors = FALSE)
+      read.csv("https://github.com/rarabzad/weathercan_imputation/raw/refs/heads/main/LR/stations.csv", stringsAsFactors = FALSE)
     }, error = function(e) NULL)
     
     if (!"station_id" %in% names(data_df)) {
@@ -409,7 +409,7 @@ server <- function(input, output, session) {
       xyz <- spTransform(xyz, crs(sprintf("+proj=utm +zone=%d +ellps=WGS84 +datum=WGS84 +units=m +no_defs ",zone)))
       xyz <- cbind(coordinates(xyz), ele = xyz@data$elev)
       rownames(xyz) <- station_id
-      source("https://raw.githubusercontent.com/rarabzad/LR/main/LR.R")
+      source("https://raw.githubusercontent.com/rarabzad/weathercan_imputation/refs/heads/main/LR/LR.R")
     }
     
     for (i in 1:length(params)) {
@@ -573,3 +573,4 @@ server <- function(input, output, session) {
 
 # Run app
 shinyApp(ui, server)
+
